@@ -1,0 +1,6 @@
+.env
+charts/
+data/
+venv/
+__pycache__/
+*.pyc
