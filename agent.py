@@ -7,7 +7,6 @@ from tools import inspect_csv, run_python, finish_report, CHARTS_DIR
 from prompts import SYSTEM_PROMPT
 
 load_dotenv()
-client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 MODEL = "llama-3.3-70b-versatile"
 
@@ -134,8 +133,10 @@ def _truncate(result: dict, max_chars: int = 1500) -> str:
     return text
 
 
-def run_agent(csv_path: str, status_callback=None):
+def run_agent(csv_path: str, api_key: str = None, status_callback=None):
     """Run the tool-calling loop until finish_report is called. Returns (report, charts)."""
+    client = Groq(api_key=api_key or os.environ.get("GROQ_API_KEY"))
+
     for f in CHARTS_DIR.glob("*.png"):
         f.unlink(missing_ok=True)
 

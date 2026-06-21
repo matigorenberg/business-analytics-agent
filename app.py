@@ -110,6 +110,13 @@ st.markdown(
 )
 st.markdown("<span class='model-badge'>Llama 3.3 70B · Groq</span>", unsafe_allow_html=True)
 
+groq_api_key = st.text_input(
+    "Please enter your Groq API Key to run the analysis",
+    type="password",
+    placeholder="gsk_...",
+    help="Free at console.groq.com — no credit card required",
+)
+
 uploaded_file = st.file_uploader("Upload CSV", type=["csv"], label_visibility="collapsed")
 
 if uploaded_file:
@@ -128,9 +135,12 @@ if uploaded_file:
 
     st.markdown(f"<p style='color:#8b949e; font-size:0.85rem;'>📄 {uploaded_file.name}</p>", unsafe_allow_html=True)
 
+    if not groq_api_key:
+        st.warning("Enter your Groq API key above to run the analysis.")
+
     _, col_btn, _ = st.columns([3, 2, 3])
     with col_btn:
-        run_btn = st.button("Run Analysis", type="primary", width='stretch')
+        run_btn = st.button("Run Analysis", type="primary", width='stretch', disabled=not groq_api_key)
 
     if run_btn:
         log_container = st.empty()
@@ -159,7 +169,7 @@ if uploaded_file:
 
         try:
             with st.spinner("Agent is working..."):
-                report, charts = run_agent(st.session_state.csv_path, status_callback=update_status)
+                report, charts = run_agent(st.session_state.csv_path, api_key=groq_api_key, status_callback=update_status)
         except Exception as e:
             log_container.empty()
             st.error(f"Agent error: {e}")
