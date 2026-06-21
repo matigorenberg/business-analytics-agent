@@ -10,9 +10,9 @@ An AI-powered agent that analyzes sales and transaction data and generates an ex
 
 Most analytics tools require you to know what questions to ask before you start. This agent flips that: you upload a CSV and it figures out what's worth analyzing on its own.
 
-The agent inspects the data structure, decides which analyses make sense for that specific dataset, writes and executes Python code to run them, and compiles the results into a plain-language executive report. The output is designed for non-technical stakeholders — specific numbers, business context, and actionable recommendations.
+The agent inspects the data structure, decides which analyses make sense for that specific dataset, writes and executes Python code to run them, and compiles the results into a plain-language executive report. The output is designed for non-technical stakeholders, using specific numbers, business context, and actionable recommendations.
 
-It is optimized for sales and transaction datasets: e-commerce orders, retail point-of-sale, sales pipelines — anything with customers, products, quantities, prices, and dates.
+It is optimized for sales and transaction datasets: e-commerce orders, retail point-of-sale, sales pipelines, including anything with customers, products, quantities, prices, and dates.
 
 ---
 
@@ -33,7 +33,7 @@ Executive summary + key findings + recommendations
 Interactive report + charts + optional PDF export
 ```
 
-This is a real agentic loop — the model calls tools, reads the outputs, and decides what to do next. It is not a fixed pipeline.
+This is a real agentic loop where the model calls tools, reads the outputs, and decides what to do next. It is not a fixed pipeline.
 
 ---
 
@@ -51,7 +51,7 @@ This is a real agentic loop — the model calls tools, reads the outputs, and de
 
 ## Key design decisions
 
-**Function calling over frameworks:** The agent loop is ~50 lines of plain Python. No LangChain, no LangGraph. Using the model's native tool use keeps the reasoning in the model and the plumbing transparent — easier to debug, easier to explain.
+**Function calling over frameworks:** The agent loop is ~50 lines of plain Python. No LangChain, no LangGraph. Using the model's native tool use keeps the reasoning in the model and the plumbing transparent, making it easier to debug and explain.
 
 **Dynamic code execution:** The agent writes and runs Python for each analysis rather than calling pre-built functions. This means it can handle columns it has never seen before and adapt the analysis to the actual data shape.
 
@@ -89,7 +89,7 @@ venv\Scripts\activate        # Windows
 pip install -r requirements.txt
 
 cp .env.example .env
-# Add your GROQ_API_KEY — free tier at console.groq.com
+# Add your GROQ_API_KEY (free tier at console.groq.com)
 
 streamlit run app.py
 ```
@@ -98,14 +98,14 @@ streamlit run app.py
 
 ## Demo dataset
 
-The demo uses the [Online Retail dataset](https://archive.ics.uci.edu/dataset/352/online+retail) from UCI — real UK e-commerce transactions, ~500k rows. Download the Excel file and convert:
+The demo uses the [Online Retail dataset](https://archive.ics.uci.edu/dataset/352/online+retail) from UCI, containing real UK e-commerce transactions with ~500k rows. Download the Excel file and convert:
 
 ```python
 import pandas as pd
 pd.read_excel("data/Online Retail.xlsx").to_csv("data/online_retail.csv", index=False)
 ```
 
-The agent works with any business CSV — the dataset is only needed for the demo.
+The agent works with any business CSV, and the dataset is only needed for the demo.
 
 ---
 
