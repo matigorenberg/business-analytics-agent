@@ -2,7 +2,7 @@
 
 An AI-powered agent that analyzes sales and transaction data and generates an executive report with trend analysis, customer segments, anomalies and actionable recommendations.
 
-**[Live demo](#)** ← replace after deploying
+**[Live demo](https://business-analytics-agent.streamlit.app/)**
 
 ---
 
